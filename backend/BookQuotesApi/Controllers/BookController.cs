@@ -53,6 +53,12 @@ namespace BookQuotesApi.Controllers
         public async Task<IActionResult> Create(CreateBookDto dto)
         {
             var userId = GetUserId();
+             var duplicate = await _context.Books
+        .AnyAsync(b => b.UserId == userId && b.Title.ToLower() == dto.Title.ToLower());
+
+    if (duplicate)
+        return BadRequest(new { message = "You already have a book with this title in your collection." });
+
 
             var book = new Book
             {

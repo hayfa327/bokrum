@@ -11,5 +11,14 @@ namespace BookQuotesApi.Data
 
         public DbSet<Book> Books { get; set; }
         public DbSet<Quote> Quotes { get; set; }
+
+         protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<Book>()
+                .HasIndex(b => new { b.UserId, b.Title })
+                .IsUnique();
+        }
     }
 }
