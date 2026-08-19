@@ -59,7 +59,8 @@ namespace BookQuotesApi.Controllers
                 Title = dto.Title,
                 Author = dto.Author,
                 PublishDate = dto.PublishDate,
-                UserId = userId
+                UserId = userId,
+                CoverImageUrl = dto.CoverImageUrl,
             };
 
             _context.Books.Add(book);
@@ -81,6 +82,7 @@ namespace BookQuotesApi.Controllers
             book.Title = dto.Title;
             book.Author = dto.Author;
             book.PublishDate = dto.PublishDate;
+            book.CoverImageUrl = dto.CoverImageUrl;
 
             await _context.SaveChangesAsync();
 

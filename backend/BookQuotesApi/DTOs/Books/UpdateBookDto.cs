@@ -12,5 +12,7 @@ namespace BookQuotesApi.DTOs.Books
 
         [Required]
         public DateTime PublishDate { get; set; }
+
+        public string? CoverImageUrl { get; set; }
     }
 }
