@@ -22,7 +22,7 @@ namespace BookQuotesApi.Services
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email ?? string.Empty),
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
-                new Claim(ClaimTypes.Name, user.UserName ?? string.Empty)
+                new Claim(ClaimTypes.Name, user.DisplayName ?? string.Empty)
             };
 
             var jwtKey = _config["Jwt:Key"]
