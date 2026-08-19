@@ -36,7 +36,7 @@ namespace BookQuotesApi.Controllers
             return Ok(books);
         }
 
-        [HttpGet("{id}")]
+      [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var userId = GetUserId();
