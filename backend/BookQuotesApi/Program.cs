@@ -1,3 +1,4 @@
+using BookQuotesApi.Services;
 using BookQuotesApi.Data;
 using BookQuotesApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -5,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,6 +48,8 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
     };
 });
+
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 // --- Controllers, Swagger , CORS---
 builder.Services.AddControllers();
