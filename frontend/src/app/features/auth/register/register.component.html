@@ -1,0 +1,107 @@
+<div class="auth-page">
+  <div class="auth-image">
+    <div class="auth-image-overlay">
+      <div class="brand">
+        <span class="brand-logo">📚</span>
+        <span class="brand-name">Book &amp; Quotes</span>
+      </div>
+      <div class="tagline">
+        <h1>Your personal<br />library, curated.</h1>
+        <p>Track the books you love. Collect the words that move you. Build a library entirely your own.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="auth-form-panel">
+    <div class="auth-form-mobile-brand">
+      <span class="brand-logo">📚</span>
+      <span class="brand-name">Book &amp; Quotes</span>
+    </div>
+
+    <div class="auth-form-wrapper">
+      <h2>Create account.</h2>
+      <p class="subtitle">Start building your personal collection.</p>
+
+      @if (fieldErrors().general) {
+        <p class="error-message general-error">{{ fieldErrors().general }}</p>
+      }
+
+      <form (ngSubmit)="onSubmit()" #registerForm="ngForm" novalidate>
+       <div class="form-group">
+  <label for="username">Name</label>
+  <input
+    id="username"
+    type="text"
+    name="username"
+    [(ngModel)]="username"
+    (ngModelChange)="validateUsername()"
+    placeholder="Your name"
+    autocomplete="name"
+  />
+  @if (fieldErrors().username) {
+    <p class="error-message">{{ fieldErrors().username }}</p>
+  }
+</div>
+
+<div class="form-group">
+  <label for="email">Email</label>
+  <input
+    id="email"
+    type="email"
+    name="email"
+    [(ngModel)]="email"
+    (ngModelChange)="validateEmail()"
+    placeholder="you@example.com"
+    autocomplete="email"
+  />
+  @if (fieldErrors().email) {
+    <p class="error-message">{{ fieldErrors().email }}</p>
+  }
+</div>
+
+<div class="form-group">
+  <label for="password">Password</label>
+  <div class="password-field">
+    <input
+      [type]="showPassword() ? 'text' : 'password'"
+      id="password"
+      name="password"
+      [(ngModel)]="password"
+      (ngModelChange)="validatePassword()"
+      placeholder="••••••••"
+      autocomplete="new-password"
+    />
+    <button type="button" class="toggle-visibility" (click)="togglePassword()">👁</button>
+  </div>
+  <p class="field-hint">At least 6 characters, with an uppercase letter, a lowercase letter, and a number.</p>
+  @if (fieldErrors().password) {
+    <p class="error-message">{{ fieldErrors().password }}</p>
+  }
+</div>
+
+<div class="form-group">
+  <label for="confirmPassword">Confirm Password</label>
+  <input
+    [type]="showPassword() ? 'text' : 'password'"
+    id="confirmPassword"
+    name="confirmPassword"
+    [(ngModel)]="confirmPassword"
+    (ngModelChange)="validateConfirmPassword()"
+    placeholder="••••••••"
+    autocomplete="new-password"
+  />
+  @if (fieldErrors().confirmPassword) {
+    <p class="error-message">{{ fieldErrors().confirmPassword }}</p>
+  }
+</div>
+
+
+        <button type="submit" class="submit-btn" [disabled]="loading() || !!successMessage()">
+  {{ successMessage() ? 'Account created ✓' : (loading() ? 'Creating account...' : 'Create Account') }}
+</button>
+
+        <p class="switch-auth">Already have an account? <a routerLink="/login">Sign in</a></p>
+      </form>
+    </div>
+  </div>
+</div>

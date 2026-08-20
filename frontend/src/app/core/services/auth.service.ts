@@ -15,9 +15,8 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   register(data: RegisterRequest): Observable<AuthResponse> {
-    return this.http
-      .post<AuthResponse>(`${environment.apiUrl}/auth/register`, data)
-      .pipe(tap((res) => this.storeSession(res)));
+    // No auto-login here — user is redirected to the login page after registering.
+    return this.http.post<AuthResponse>(`${environment.apiUrl}/auth/register`, data);
   }
 
   login(data: LoginRequest): Observable<AuthResponse> {
