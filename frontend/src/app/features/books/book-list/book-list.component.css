@@ -182,25 +182,48 @@
   background: #ff1515ee;
 }
 
-.confirm-box {
-  background: white;
-  border-radius: 6px;
-  padding: 0.4rem 0.6rem;
+ .quote-actions {
   display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  font-size: 0.82rem;
+}
+
+.text-btn {
+  display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  font-size: 0.8rem;
-  color: #202522;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  gap: 0.35rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6d716e;
+  font-size: 0.82rem;
+}
+
+.edit-btn:hover {
+  color: #19324a;
+}
+
+.delete-btn {
+  color: #b3453b;
+}
+
+.delete-btn:hover {
+  color: #963a31;
+}
+
+.confirm-box {
+  font-size: 0.82rem;
+  color: white;
 }
 
 .confirm-box .yes-btn,
 .confirm-box .no-btn {
   border: none;
-  border-radius: 4px;
-  padding: 0.15rem 0.4rem;
+  padding: 0.15rem 0.5rem;
+  margin-left: 0.35rem;
   cursor: pointer;
-  font-size: 0.75rem;
+  font-size: 0.78rem;
 }
 
 .confirm-box .yes-btn {
