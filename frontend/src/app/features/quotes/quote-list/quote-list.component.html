@@ -1,0 +1,102 @@
+<div class="quotes-page">
+  <div class="quotes-header">
+    <div>
+      <h1>My Quotes</h1>
+      <p class="subtitle">Words worth remembering.</p>
+    </div>
+    <button class="add-btn" (click)="openAddModal()">
+      <i class="fa-solid fa-plus"></i> Add Quote
+    </button>
+  </div>
+
+  @if (errorMessage()) {
+    <p class="error-message">{{ errorMessage() }}</p>
+  }
+
+  @if (loading()) {
+    <p class="status-text">Loading your quotes...</p>
+  } @else if (quotes().length === 0) {
+    <div class="empty-state">
+      <i class="fa-solid fa-quote-left"></i>
+      <p>You haven't saved any quotes yet.</p>
+    </div>
+  } @else {
+    <div class="quotes-grid">
+      @for (quote of quotes(); track quote.id) {
+        <div class="quote-card">
+          <i class="fa-solid fa-quote-left quote-mark"></i>
+          <p class="quote-text">{{ quote.text }}</p>
+          <div class="quote-footer">
+            <p class="quote-author">{{ authorOf(quote.source) }}</p>
+            @if (bookOf(quote.source)) {
+              <p class="quote-book">{{ bookOf(quote.source) }}</p>
+            }
+          </div>
+
+          <div class="quote-actions">
+            @if (confirmingDeleteId() === quote.id) {
+              <span class="confirm-box">
+                Remove? <button (click)="confirmDelete(quote.id)" class="yes-btn">Yes</button>
+                <button (click)="cancelDelete()" class="no-btn">No</button>
+              </span>
+            } @else {
+              <button (click)="openEditModal(quote)" class="text-btn edit-btn">
+                <i class="fa-solid fa-pen-to-square"></i> Edit
+              </button>
+              <button (click)="askDelete(quote.id)" class="text-btn delete-btn">
+                <i class="fa-solid fa-trash-can"></i> Delete
+              </button>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
+
+@if (showModal()) {
+  <div class="modal-overlay" (click)="closeModal()">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>{{ isEditMode() ? 'Edit Quote' : 'Add Quote' }}</h2>
+        <button class="modal-close" (click)="closeModal()" aria-label="Close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      @if (fieldErrors().general) {
+        <p class="error-message general-error">{{ fieldErrors().general }}</p>
+      }
+
+      <form (ngSubmit)="saveQuote()" novalidate>
+        <div class="form-group">
+          <label for="text">Quote *</label>
+          <textarea id="text" name="text" [(ngModel)]="text" placeholder="Enter the quote..."></textarea>
+          @if (fieldErrors().text) {
+            <p class="error-message">{{ fieldErrors().text }}</p>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="author">Author *</label>
+          <input id="author" type="text" name="author" [(ngModel)]="author" placeholder="e.g. Marcus Aurelius" />
+          @if (fieldErrors().author) {
+            <p class="error-message">{{ fieldErrors().author }}</p>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="bookTitle">Book Title <span class="optional">(optional)</span></label>
+          <input id="bookTitle" type="text" name="bookTitle" [(ngModel)]="bookTitle" placeholder="e.g. Meditations" />
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="cancel-btn" (click)="closeModal()">Cancel</button>
+          <button type="submit" class="save-btn" [disabled]="saving()">
+            {{ saving() ? 'Saving...' : (isEditMode() ? 'Save Changes' : 'Save Quote') }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+}
