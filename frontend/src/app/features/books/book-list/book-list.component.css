@@ -418,6 +418,112 @@
   display: none;
 }
 
+body.dark-mode .books-header h1 {
+  color: #f3f0e8;
+}
+
+body.dark-mode .subtitle {
+  color: #8fa9b8;
+}
+
+body.dark-mode .search-box {
+  background: #1c252b;
+  border-color: #2a343a;
+}
+
+body.dark-mode .search-box input {
+  background: transparent;
+  color: #f3f0e8;
+}
+
+body.dark-mode .search-box input::placeholder {
+  color: #6b7a80;
+}
+
+body.dark-mode .search-box i {
+  color: #6b7a80;
+}
+
+body.dark-mode .add-btn {
+  background: #8fa9b8;
+  color: #12181c;
+}
+
+body.dark-mode .add-btn:hover {
+  background: #a3bbc7;
+}
+
+/* Cover colors stay saturated/unchanged in dark mode — only the info panel below goes dark */
+body.dark-mode .book-info {
+  background: #12181c;
+}
+
+body.dark-mode .book-title {
+  color: #f3f0e8;
+}
+
+body.dark-mode .book-author {
+  color: #8fa9b8;
+}
+
+body.dark-mode .book-year {
+  color: #6b7a80;
+}
+
+body.dark-mode .mobile-actions button {
+  background: #1c252b;
+  border-color: #2a343a;
+  color: #f3f0e8;
+}
+
+body.dark-mode .modal-box {
+  background: #12181c;
+  border: 1px solid #232d33;
+}
+
+body.dark-mode .modal-header h2 {
+  color: #f3f0e8;
+}
+
+body.dark-mode .modal-close {
+  color: #8fa9b8;
+}
+
+body.dark-mode .form-group label {
+  color: #f3f0e8;
+}
+
+body.dark-mode .optional {
+  color: #6b7a80;
+}
+
+body.dark-mode .form-group input,
+body.dark-mode .form-group textarea {
+  background: #1c252b;
+  border-color: #2a343a;
+  color: #f3f0e8;
+}
+
+body.dark-mode .form-group input::placeholder,
+body.dark-mode .form-group textarea::placeholder {
+  color: #5a6a70;
+}
+
+body.dark-mode .cancel-btn {
+  background: transparent;
+  border-color: #2a343a;
+  color: #8fa9b8;
+}
+
+body.dark-mode .save-btn {
+  background: #8fa9b8;
+  color: #12181c;
+}
+
+body.dark-mode .save-btn:hover:not(:disabled) {
+  background: #a3bbc7;
+}
+
 @media (max-width: 767px) {
   .books-page {
     padding: 1.25rem;

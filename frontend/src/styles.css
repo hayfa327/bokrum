@@ -10,3 +10,8 @@ body {
    font-family: 'Fraunces', serif;
   background: #f7f5f0;
 }
+
+body.dark-mode {
+  background: #12181cfa;
+  color: #f3f0e8;
+}
