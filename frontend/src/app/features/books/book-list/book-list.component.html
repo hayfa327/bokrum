@@ -16,9 +16,9 @@
         (ngModelChange)="searchTerm.set($event)"
       />
     </div>
-    <a routerLink="/books/new" class="add-btn">
+    <button class="add-btn" (click)="openAddModal()">
       <i class="fa-solid fa-plus"></i> Add New Book
-    </a>
+    </button>
   </div>
 
   @if (errorMessage()) {
@@ -38,10 +38,28 @@
         <div class="book-card">
           <div class="book-cover" [style.background]="colorFor(book.id)">
             @if (book.coverImageUrl) {
-              <img [src]="book.coverImageUrl" [alt]="book.title" />
+              <img [src]="book.coverImageUrl" [alt]="book.title" class="cover-photo" />
             } @else {
               <i class="fa-solid fa-quote-right cover-icon"></i>
             }
+
+            <div class="cover-actions">
+              @if (confirmingDeleteId() === book.id) {
+                <div class="confirm-box">
+                  <span>Remove?</span>
+                  <button (click)="confirmDelete(book.id)" class="yes-btn">Yes</button>
+                  <button (click)="cancelDelete()" class="no-btn">No</button>
+                </div>
+              } @else {
+                <button (click)="openEditModal(book)" class="icon-btn edit-icon-btn" aria-label="Edit book" title="Edit book">
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+                <button (click)="askDelete(book.id)" class="icon-btn delete-icon-btn" aria-label="Delete book" title="Delete book">
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+              }
+            </div>
+
             <div class="cover-footer">
               <span class="cover-author">{{ book.author.split(' ').pop() }}</span>
               <span class="cover-title">{{ book.title }}</span>
@@ -52,25 +70,81 @@
             <p class="book-title">{{ book.title }}</p>
             <p class="book-author">{{ book.author }}</p>
             <p class="book-year">{{ book.publishDate | date: 'yyyy' }}</p>
-          </div>
 
-          <div class="book-actions">
-            @if (confirmingDeleteId() === book.id) {
-              <span class="confirm-delete">
-                Remove? <button (click)="confirmDelete(book.id)" class="yes-btn">Yes</button>
-                <button (click)="cancelDelete()" class="no-btn">No</button>
-              </span>
-            } @else {
-              <a [routerLink]="['/books/edit', book.id]" class="edit-link">
-                <i class="fa-solid fa-pen"></i> Edit
-              </a>
-              <button (click)="askDelete(book.id)" class="delete-link">
-                <i class="fa-solid fa-trash"></i> Delete
-              </button>
-            }
+            <div class="mobile-actions">
+              @if (confirmingDeleteId() === book.id) {
+                <span class="confirm-box">
+                  Remove? <button (click)="confirmDelete(book.id)" class="yes-btn">Yes</button>
+                  <button (click)="cancelDelete()" class="no-btn">No</button>
+                </span>
+              } @else {
+                <button (click)="openEditModal(book)" class="mobile-edit-btn">
+                  <i class="fa-solid fa-pen-to-square"></i> Edit
+                </button>
+                <button (click)="askDelete(book.id)" class="mobile-delete-btn">
+                  <i class="fa-solid fa-trash-can"></i> Delete
+                </button>
+              }
+            </div>
           </div>
         </div>
       }
     </div>
   }
 </div>
+
+<!-- Add / Edit Modal -->
+@if (showModal()) {
+  <div class="modal-overlay" (click)="closeModal()">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>{{ isEditMode() ? 'Edit Book' : 'Add Book' }}</h2>
+        <button class="modal-close" (click)="closeModal()" aria-label="Close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      @if (fieldErrors().general) {
+        <p class="error-message general-error">{{ fieldErrors().general }}</p>
+      }
+
+      <form (ngSubmit)="saveBook()" novalidate>
+        <div class="form-group">
+          <label for="title">Title *</label>
+          <input id="title" type="text" name="title" [(ngModel)]="title" placeholder="e.g. The Long Ships" />
+          @if (fieldErrors().title) {
+            <p class="error-message">{{ fieldErrors().title }}</p>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="author">Author *</label>
+          <input id="author" type="text" name="author" [(ngModel)]="author" placeholder="e.g. Frans G. Bengtsson" />
+          @if (fieldErrors().author) {
+            <p class="error-message">{{ fieldErrors().author }}</p>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="publishDate">Published Date *</label>
+          <input id="publishDate" type="date" name="publishDate" [(ngModel)]="publishDate" />
+          @if (fieldErrors().publishDate) {
+            <p class="error-message">{{ fieldErrors().publishDate }}</p>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="coverImageUrl">Cover Image URL <span class="optional">(optional)</span></label>
+          <input id="coverImageUrl" type="url" name="coverImageUrl" [(ngModel)]="coverImageUrl" placeholder="https://example.com/cover.jpg" />
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="cancel-btn" (click)="closeModal()">Cancel</button>
+          <button type="submit" class="save-btn" [disabled]="saving()">
+            {{ saving() ? 'Saving...' : (isEditMode() ? 'Save Changes' : 'Save Book') }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+}

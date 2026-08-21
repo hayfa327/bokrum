@@ -1,0 +1,58 @@
+<div class="form-page">
+  <a routerLink="/books" class="back-link">
+    <i class="fa-solid fa-chevron-left"></i> Back to Books
+  </a>
+
+  <h1>{{ isEditMode() ? 'Edit Book' : 'Add New Book' }}</h1>
+  <p class="subtitle">
+    {{ isEditMode() ? 'Update the details for this book.' : 'Add a book to your personal collection.' }}
+  </p>
+
+  @if (loading()) {
+    <p class="status-text">Loading...</p>
+  } @else {
+    <div class="form-card">
+      @if (fieldErrors().general) {
+        <p class="error-message general-error">{{ fieldErrors().general }}</p>
+      }
+
+      <form (ngSubmit)="onSubmit()" novalidate>
+        <div class="form-group">
+          <label for="title">Title *</label>
+          <input id="title" type="text" name="title" [(ngModel)]="title" placeholder="e.g. The Long Ships" />
+          @if (fieldErrors().title) {
+            <p class="error-message">{{ fieldErrors().title }}</p>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="author">Author *</label>
+          <input id="author" type="text" name="author" [(ngModel)]="author" placeholder="e.g. Frans G. Bengtsson" />
+          @if (fieldErrors().author) {
+            <p class="error-message">{{ fieldErrors().author }}</p>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="publishDate">Published Date *</label>
+          <input id="publishDate" type="date" name="publishDate" [(ngModel)]="publishDate" />
+          @if (fieldErrors().publishDate) {
+            <p class="error-message">{{ fieldErrors().publishDate }}</p>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="coverImageUrl">Cover Image URL <span class="optional">(optional)</span></label>
+          <input id="coverImageUrl" type="url" name="coverImageUrl" [(ngModel)]="coverImageUrl" placeholder="https://example.com/cover.jpg" />
+        </div>
+
+        <div class="form-actions">
+          <a routerLink="/books" class="cancel-btn">Cancel</a>
+          <button type="submit" class="save-btn" [disabled]="saving()">
+            {{ saving() ? 'Saving...' : (isEditMode() ? 'Save Changes' : 'Save Book') }}
+          </button>
+        </div>
+      </form>
+    </div>
+  }
+</div>

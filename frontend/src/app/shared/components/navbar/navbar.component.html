@@ -1,0 +1,57 @@
+<nav class="navbar">
+  <div class="navbar-brand">
+    <i class="fa-solid fa-feather-pointed"></i>
+    <span>Book &amp; Quotes</span>
+  </div>
+
+  <div class="navbar-links desktop-only">
+    <a routerLink="/books" routerLinkActive="active">Books</a>
+    <a routerLink="/quotes" routerLinkActive="active">My Quotes</a>
+  </div>
+
+  <div class="navbar-actions desktop-only">
+    <button class="theme-toggle" (click)="toggleDarkMode()" aria-label="Toggle dark mode" title="Toggle dark mode">
+      <i class="fa-solid" [class.fa-moon]="!isDarkMode()" [class.fa-sun]="isDarkMode()"></i>
+    </button>
+
+    <div class="user-info">
+      <span class="user-avatar">{{ initial }}</span>
+      <span class="username">{{ authService.currentUsername() }}</span>
+    </div>
+
+    <button class="logout-btn" (click)="authService.logout()">
+      <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+    </button>
+  </div>
+
+  <button class="hamburger-btn mobile-only" (click)="toggleMobileMenu()" aria-label="Open menu">
+    <i class="fa-solid" [class.fa-bars]="!isMobileMenuOpen()" [class.fa-xmark]="isMobileMenuOpen()"></i>
+  </button>
+</nav>
+
+@if (isMobileMenuOpen()) {
+  <div class="mobile-menu">
+    <a routerLink="/books" routerLinkActive="active" (click)="closeMobileMenu()">
+      <i class="fa-solid fa-book"></i> Books
+    </a>
+    <a routerLink="/quotes" routerLinkActive="active" (click)="closeMobileMenu()">
+      <i class="fa-solid fa-quote-left"></i> My Quotes
+    </a>
+
+    <div class="mobile-menu-divider"></div>
+
+    <div class="mobile-user-row">
+      <span class="user-avatar">{{ initial }}</span>
+      <span class="username">{{ authService.currentUsername() }}</span>
+    </div>
+
+    <button class="mobile-theme-toggle" (click)="toggleDarkMode()">
+      <i class="fa-solid" [class.fa-moon]="!isDarkMode()" [class.fa-sun]="isDarkMode()"></i>
+      {{ isDarkMode() ? 'Light mode' : 'Dark mode' }}
+    </button>
+
+    <button class="mobile-logout-btn" (click)="authService.logout()">
+      <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+    </button>
+  </div>
+}
