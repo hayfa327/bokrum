@@ -491,4 +491,32 @@
     color: #b3453b;
     border-color: #f0d5cf;
   }
+
+  .mobile-actions .confirm-box {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    width: 100%;
+    font-size: 0.75rem;
+    color: #202522;
+  }
+
+  .mobile-actions .confirm-box .yes-btn,
+  .mobile-actions .confirm-box .no-btn {
+    flex: 1;
+    padding: 0.4rem;
+    border: none;
+    cursor: pointer;
+    font-size: 0.72rem;
+  }
+
+  .mobile-actions .confirm-box .yes-btn {
+    background: #b3453b;
+    color: white;
+  }
+
+  .mobile-actions .confirm-box .no-btn {
+    background: #ddd9d0;
+    color: #202522;
+  }
 }
