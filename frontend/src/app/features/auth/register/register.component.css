@@ -185,6 +185,27 @@
   margin-bottom: 1rem;
 }
 
+.brand i {
+  font-size: 1.1rem;
+  color: #19324a; /* or white, depending on which panel it's in */
+}
+
+.toggle-visibility {
+  position: absolute;
+  right: 0.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #a8a29a;
+  transition: color 0.15s ease;
+}
+
+.toggle-visibility:hover {
+  color: #6d716e;
+}
+
 @media (min-width: 768px) {
   .auth-image {
     display: block;

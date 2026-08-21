@@ -2,7 +2,7 @@
   <div class="auth-image">
     <div class="auth-image-overlay">
       <div class="brand">
-        <span class="brand-logo">📚</span>
+          <i class="fa-solid fa-feather-pointed"></i>
         <span class="brand-name">Book &amp; Quotes</span>
       </div>
       <div class="tagline">
@@ -14,7 +14,6 @@
 
   <div class="auth-form-panel">
     <div class="auth-form-mobile-brand">
-      <span class="brand-logo">📚</span>
       <span class="brand-name">Book &amp; Quotes</span>
     </div>
 
@@ -55,7 +54,15 @@
               placeholder="••••••••"
               autocomplete="current-password"
             />
-            <button type="button" class="toggle-visibility" (click)="togglePassword()">👁</button>
+ <button
+  type="button"
+  class="toggle-visibility"
+  (click)="togglePassword()"
+  [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'"
+  [attr.title]="showPassword() ? 'Hide password' : 'Show password'"
+>
+  <i class="fa-solid" [class.fa-eye]="!showPassword()" [class.fa-eye-slash]="showPassword()"></i>
+</button>
           </div>
           @if (fieldErrors().password) {
             <p class="error-message">{{ fieldErrors().password }}</p>
