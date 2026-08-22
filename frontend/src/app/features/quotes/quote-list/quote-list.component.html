@@ -2,7 +2,11 @@
   <div class="quotes-header">
     <div>
       <h1>My Quotes</h1>
-      <p class="subtitle">Words worth remembering.</p>
+      <p class="subtitle">Words worth remembering.
+          @if (!loading() && quotes().length > 0) {
+        <span class="quote-count">{{ quotes().length }} saved {{ quotes().length === 1 ? 'quote' : 'quotes' }}</span>
+      }
+      </p>
     </div>
     <button class="add-btn" (click)="openAddModal()">
       <i class="fa-solid fa-plus"></i> Add Quote
@@ -21,32 +25,34 @@
       <p>You haven't saved any quotes yet.</p>
     </div>
   } @else {
-    <div class="quotes-grid">
+    <div class="row g-4">
       @for (quote of quotes(); track quote.id) {
-        <div class="quote-card">
-          <i class="fa-solid fa-quote-left quote-mark"></i>
-          <p class="quote-text">{{ quote.text }}</p>
-          <div class="quote-footer">
-            <p class="quote-author">{{ authorOf(quote.source) }}</p>
-            @if (bookOf(quote.source)) {
-              <p class="quote-book">{{ bookOf(quote.source) }}</p>
-            }
-          </div>
+        <div class="col-12 col-md-6">
+          <div class="quote-card">
+            <i class="fa-solid fa-quote-left quote-mark"></i>
+            <p class="quote-text">{{ quote.text }}</p>
+            <div class="quote-footer">
+              <p class="quote-author">{{ authorOf(quote.source) }}</p>
+              @if (bookOf(quote.source)) {
+                <p class="quote-book">{{ bookOf(quote.source) }}</p>
+              }
+            </div>
 
-          <div class="quote-actions">
-            @if (confirmingDeleteId() === quote.id) {
-              <span class="confirm-box">
-                Remove? <button (click)="confirmDelete(quote.id)" class="yes-btn">Yes</button>
-                <button (click)="cancelDelete()" class="no-btn">No</button>
-              </span>
-            } @else {
-              <button (click)="openEditModal(quote)" class="text-btn edit-btn">
-                <i class="fa-solid fa-pen-to-square"></i> Edit
-              </button>
-              <button (click)="askDelete(quote.id)" class="text-btn delete-btn">
-                <i class="fa-solid fa-trash-can"></i> Delete
-              </button>
-            }
+            <div class="quote-actions">
+              @if (confirmingDeleteId() === quote.id) {
+                <span class="confirm-box">
+                  Remove? <button (click)="confirmDelete(quote.id)" class="yes-btn">Yes</button>
+                  <button (click)="cancelDelete()" class="no-btn">No</button>
+                </span>
+              } @else {
+                <button (click)="openEditModal(quote)" class="text-btn edit-btn">
+                  <i class="fa-solid fa-pen-to-square"></i> Edit
+                </button>
+                <button (click)="askDelete(quote.id)" class="text-btn delete-btn">
+                  <i class="fa-solid fa-trash-can"></i> Delete
+                </button>
+              }
+            </div>
           </div>
         </div>
       }

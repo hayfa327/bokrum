@@ -26,6 +26,7 @@
 .subtitle {
   color: #6f8796;
   margin-top: 0.25rem;
+   margin-bottom: 0.25rem;
 }
 
 .add-btn {
@@ -69,10 +70,8 @@
 }
 
 .quotes-grid {
-  margin-top: 1.75rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: 1fr;
+  gap: 1rem;
 }
 
 .quote-card {
@@ -80,6 +79,7 @@
   border: 1px solid #ddd9d0;
   padding: 1.5rem;
   position: relative;
+  margin-top: 1rem;
 }
 
 .quote-mark {

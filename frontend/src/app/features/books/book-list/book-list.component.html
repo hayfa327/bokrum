@@ -33,66 +33,66 @@
       <p>{{ books().length === 0 ? "You haven't added any books yet." : "No books match your search." }}</p>
     </div>
   } @else {
-    <div class="books-grid">
-      @for (book of filteredBooks(); track book.id) {
-        <div class="book-card">
-          <div class="book-cover" [style.background]="colorFor(book.id)">
-            @if (book.coverImageUrl) {
-              <img [src]="book.coverImageUrl" [alt]="book.title" class="cover-photo" />
+   <div class="row g-4">
+  @for (book of filteredBooks(); track book.id) {
+    <div class="col-6 col-md-4 col-lg-3">
+      <div class="book-card">
+        <div class="book-cover" [style.background]="colorFor(book.id)">
+          @if (book.coverImageUrl) {
+            <img [src]="book.coverImageUrl" [alt]="book.title" class="cover-photo" />
+          } @else {
+            <i class="fa-solid fa-quote-right cover-icon"></i>
+          }
+
+          <div class="cover-actions">
+            @if (confirmingDeleteId() === book.id) {
+              <div class="confirm-box">
+                <span>Remove?</span>
+                <button (click)="confirmDelete(book.id)" class="yes-btn">Yes</button>
+                <button (click)="cancelDelete()" class="no-btn">No</button>
+              </div>
             } @else {
-              <i class="fa-solid fa-quote-right cover-icon"></i>
+              <button (click)="openEditModal(book)" class="icon-btn edit-icon-btn" aria-label="Edit book" title="Edit book">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+              <button (click)="askDelete(book.id)" class="icon-btn delete-icon-btn" aria-label="Delete book" title="Delete book">
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
             }
-
-            <div class="cover-actions">
-              @if (confirmingDeleteId() === book.id) {
-                <div class="confirm-box">
-                  <span>Remove?</span>
-                  <button (click)="confirmDelete(book.id)" class="yes-btn">Yes</button>
-                  <button (click)="cancelDelete()" class="no-btn">No</button>
-                </div>
-              } @else {
-                <button (click)="openEditModal(book)" class="icon-btn edit-icon-btn" aria-label="Edit book" title="Edit book">
-                  <i class="fa-solid fa-pen-to-square"></i>
-                </button>
-                <button (click)="askDelete(book.id)" class="icon-btn delete-icon-btn" aria-label="Delete book" title="Delete book">
-                  <i class="fa-solid fa-trash-can"></i>
-                </button>
-              }
-            </div>
-
-            <div class="cover-footer">
-              <span class="cover-author">{{ book.author.split(' ').pop() }}</span>
-              <span class="cover-title">{{ book.title }}</span>
-            </div>
           </div>
 
-          <div class="book-info">
-            <p class="book-title">{{ book.title }}</p>
-            <p class="book-author">{{ book.author }}</p>
-            <p class="book-year">{{ book.publishDate | date: 'yyyy' }}</p>
-
-            <div class="mobile-actions">
-              @if (confirmingDeleteId() === book.id) {
-                <span class="confirm-box">
-                  Remove? <button (click)="confirmDelete(book.id)" class="yes-btn">Yes</button>
-                  <button (click)="cancelDelete()" class="no-btn">No</button>
-                </span>
-              } @else {
-                <button (click)="openEditModal(book)" class="mobile-edit-btn">
-                  <i class="fa-solid fa-pen-to-square"></i> Edit
-                </button>
-                <button (click)="askDelete(book.id)" class="mobile-delete-btn">
-                  <i class="fa-solid fa-trash-can"></i> Delete
-                </button>
-              }
-            </div>
+          <div class="cover-footer">
+            <span class="cover-author">{{ book.author.split(' ').pop() }}</span>
+            <span class="cover-title">{{ book.title }}</span>
           </div>
         </div>
-      }
+
+        <div class="book-info">
+          <p class="book-title">{{ book.title }}</p>
+          <p class="book-author">{{ book.author }}</p>
+          <p class="book-year">{{ book.publishDate | date: 'yyyy' }}</p>
+
+          <div class="mobile-actions">
+            @if (confirmingDeleteId() === book.id) {
+              <span class="confirm-box">
+                Remove? <button (click)="confirmDelete(book.id)" class="yes-btn">Yes</button>
+                <button (click)="cancelDelete()" class="no-btn">No</button>
+              </span>
+            } @else {
+              <button (click)="openEditModal(book)" class="mobile-edit-btn">
+                <i class="fa-solid fa-pen-to-square"></i> Edit
+              </button>
+              <button (click)="askDelete(book.id)" class="mobile-delete-btn">
+                <i class="fa-solid fa-trash-can"></i> Delete
+              </button>
+            }
+          </div>
+        </div>
+      </div>
     </div>
   }
 </div>
-
+  }
 <!-- Add / Edit Modal -->
 @if (showModal()) {
   <div class="modal-overlay" (click)="closeModal()">
