@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // --- Database (SQLite) ---
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AzureConnection")));
 
 // --- Identity ---
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
